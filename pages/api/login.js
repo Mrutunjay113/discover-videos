@@ -28,8 +28,9 @@ export default async function login(req, res) {
       //CHECK IF USER EXISTS
       const isNewUserQuery = await isNewUser(token, metadata.issuer);
       isNewUserQuery && (await createNewUser(token, metadata));
-      const cookie = setTokenCookie(token, res);
+      setTokenCookie(token, res);
       res.send({ done: true });
+
       //invoke magic
     } catch (error) {
       console.error("something went wrong", error);
