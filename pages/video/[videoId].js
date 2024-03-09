@@ -43,13 +43,15 @@ const Video = ({ video }) => {
 
   const [toggleLike, setToggleLike] = useState(false);
   const [toggleDisLike, setToggleDisLike] = useState(false);
-
+  const viewCount = video?.statistics?.viewCount || 0;
+  const likeCount = video?.statistics?.likeCount || 0;
+  const commentCount = video?.statistics?.commentCount || 0;
   const {
     title,
     publishTime,
     description,
     channelTitle,
-    statistics: { viewCount, likeCount, commentCount },
+    // statistics: { viewCount, likeCount, commentCount },
   } = video;
 
   useEffect(() => {
@@ -119,6 +121,10 @@ const Video = ({ video }) => {
           width="100%"
           height="460"
           frameborder="0"
+          allowfullscreen
+          allow="fullscreen; accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
           src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=1&rel=1`}
         ></iframe>
 
@@ -140,13 +146,17 @@ const Video = ({ video }) => {
           <div className={styles.modalBodyContent}>
             <div className={styles.col1}>
               <p className={styles.publishTime}>{publishTime}</p>
-              <p className={styles.title}>{title}</p>
-              <p className={styles.description}>{description}</p>
+              <p className={styles.title}>
+                {title || "error while fetching data"}
+              </p>
+              <p className={styles.description}>{description || ""}</p>
             </div>
             <div className={styles.col2}>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>Cast: </span>
-                <span className={styles.channelTitle}>{channelTitle}</span>
+                <span className={styles.channelTitle}>
+                  {channelTitle || "-"}
+                </span>
               </p>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>View Count: </span>

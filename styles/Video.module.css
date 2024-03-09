@@ -55,6 +55,7 @@
   max-height: 30vh /* 208px */;
   overflow-y: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .publishTime {
