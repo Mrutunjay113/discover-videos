@@ -39,6 +39,7 @@ export async function getStaticPaths() {
 const Video = ({ video }) => {
   const router = useRouter();
   const videoId = router.query.videoId;
+  console.log({ video });
 
   const [toggleLike, setToggleLike] = useState(false);
   const [toggleDisLike, setToggleDisLike] = useState(false);
@@ -48,7 +49,7 @@ const Video = ({ video }) => {
     publishTime,
     description,
     channelTitle,
-    statistics: { viewCount } = { viewCount: 0 },
+    statistics: { viewCount, likeCount, commentCount },
   } = video;
 
   useEffect(() => {
@@ -116,9 +117,9 @@ const Video = ({ video }) => {
           className={styles.videoPlayer}
           type="text/html"
           width="100%"
-          height="360"
+          height="460"
+          frameborder="0"
           src={`https://www.youtube.com/embed/${videoId}?autoplay=0&origin=http://example.com&controls=1&rel=1`}
-          frameBorder="0"
         ></iframe>
 
         <div className={styles.likeDislikeBtnWrapper}>
@@ -150,6 +151,14 @@ const Video = ({ video }) => {
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
                 <span className={styles.textColor}>View Count: </span>
                 <span className={styles.channelTitle}>{viewCount}</span>
+              </p>
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>Like: </span>
+                <span className={styles.channelTitle}>{likeCount}</span>
+              </p>
+              <p className={clsx(styles.subText, styles.subTextWrapper)}>
+                <span className={styles.textColor}>comment: </span>
+                <span className={styles.channelTitle}>{commentCount}</span>
               </p>
             </div>
           </div>
